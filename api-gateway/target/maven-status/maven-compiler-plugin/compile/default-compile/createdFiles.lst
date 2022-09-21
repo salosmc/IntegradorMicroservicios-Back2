@@ -1,4 +1,0 @@
-com/digitalhouse/apigateway/ApiGatewayApplication.class
-com/digitalhouse/apigateway/config/LoggingFilter$Config.class
-com/digitalhouse/apigateway/config/LoggingFilter.class
-com/digitalhouse/apigateway/controller/FallbackController.class
