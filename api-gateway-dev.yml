@@ -7,6 +7,16 @@ spring:
       default-filters:
         - name: LoggingFilter
       routes:
+        #agrego ruta de serie
+        - id: serieRoute
+          uri: lb://serie-service
+          predicates:
+            - Path=/series/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: seriesService
+                fallbackUri: forward:/fallback/series
         - id: movieRoute
           uri: lb://movie-service
           predicates:
