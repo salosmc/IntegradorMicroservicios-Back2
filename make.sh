@@ -8,6 +8,12 @@ mvn clean && mvn package -DskipTests
 docker build . -t config-service
 cd ..
 
+#Agregamos el build de serie-service
+cd serie-service/
+mvn clean && mvn package -DskipTests
+docker build . -t serie-service
+cd ..
+
 cd movie-service/
 mvn clean && mvn package -DskipTests
 docker build . -t movie-service

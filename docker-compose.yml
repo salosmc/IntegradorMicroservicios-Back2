@@ -20,16 +20,22 @@ services:
     ports:
       - "8888:8888"
     restart: always
-  movie-service:
-    image: movie-service
+  #agregamos contenedor de serie
+  serie-service:
+    image: serie-service
     ports:
-      - "8082:8082"
+      - "8086:8086"
     restart: always
-  catalog-service:
-    image: catalog-service
-    ports:
-      - "8084:8084"
-    restart: always
+  #movie-service:
+  #  image: movie-service
+  #  ports:
+  #    - "8082:8082"
+  #  restart: always
+  #catalog-service:
+  #  image: catalog-service
+  #  ports:
+  #    - "8084:8084"
+  #  restart: always
   api-gateway:
     image: api-gateway
     ports:
