@@ -1,15 +1,15 @@
 version: "3.9"
 
 services:
-  zipkin:
-    image: openzipkin/zipkin
-    ports:
-      - "9411:9411"
-  rabbitmq:
-    image: rabbitmq:3.7.2-management
-    ports:
-      - "15672:15672"
-      - "5672:5672"
+  #zipkin:
+  #  image: openzipkin/zipkin
+  #  ports:
+  #    - "9411:9411"
+  #rabbitmq:
+  #  image: rabbitmq:3.7.2-management
+  #  ports:
+  #    - "15672:15672"
+  #    - "5672:5672"
   eureka-service:
     image: eureka-service
     ports:
