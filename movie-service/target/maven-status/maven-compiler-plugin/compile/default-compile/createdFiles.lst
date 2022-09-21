@@ -1,0 +1,7 @@
+com/digitalhouse/movieservice/api/config/RabbitMQSenderConfig.class
+com/digitalhouse/movieservice/api/config/RabbitTemplateConfig.class
+com/digitalhouse/movieservice/domain/models/Movie.class
+com/digitalhouse/movieservice/api/service/MovieService.class
+com/digitalhouse/movieservice/api/controller/MovieController.class
+com/digitalhouse/movieservice/domain/repositories/MovieRepository.class
+com/digitalhouse/movieservice/MovieServiceApplication.class

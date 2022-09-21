@@ -1,0 +1,7 @@
+/home/salo/Documentos/EspecializacionDH/1erBimestre/Back/clase-18-main/catalog-service/src/main/java/com/digitalhouse/catalogservice/api/config/RabbitMQSenderConfig.java
+/home/salo/Documentos/EspecializacionDH/1erBimestre/Back/clase-18-main/catalog-service/src/main/java/com/digitalhouse/catalogservice/domain/model/MovieDTO.java
+/home/salo/Documentos/EspecializacionDH/1erBimestre/Back/clase-18-main/catalog-service/src/main/java/com/digitalhouse/catalogservice/api/config/RabbitTemplateConfig.java
+/home/salo/Documentos/EspecializacionDH/1erBimestre/Back/clase-18-main/catalog-service/src/main/java/com/digitalhouse/catalogservice/api/client/MovieClient.java
+/home/salo/Documentos/EspecializacionDH/1erBimestre/Back/clase-18-main/catalog-service/src/main/java/com/digitalhouse/catalogservice/api/service/MovieService.java
+/home/salo/Documentos/EspecializacionDH/1erBimestre/Back/clase-18-main/catalog-service/src/main/java/com/digitalhouse/catalogservice/api/controller/CatalogController.java
+/home/salo/Documentos/EspecializacionDH/1erBimestre/Back/clase-18-main/catalog-service/src/main/java/com/digitalhouse/catalogservice/CatalogServiceApplication.java

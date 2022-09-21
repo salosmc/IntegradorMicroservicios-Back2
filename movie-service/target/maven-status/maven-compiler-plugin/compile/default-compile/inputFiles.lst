@@ -1,0 +1,7 @@
+/home/salo/Documentos/EspecializacionDH/1erBimestre/Back/clase-18-main/movie-service/src/main/java/com/digitalhouse/movieservice/api/config/RabbitTemplateConfig.java
+/home/salo/Documentos/EspecializacionDH/1erBimestre/Back/clase-18-main/movie-service/src/main/java/com/digitalhouse/movieservice/domain/repositories/MovieRepository.java
+/home/salo/Documentos/EspecializacionDH/1erBimestre/Back/clase-18-main/movie-service/src/main/java/com/digitalhouse/movieservice/domain/models/Movie.java
+/home/salo/Documentos/EspecializacionDH/1erBimestre/Back/clase-18-main/movie-service/src/main/java/com/digitalhouse/movieservice/api/config/RabbitMQSenderConfig.java
+/home/salo/Documentos/EspecializacionDH/1erBimestre/Back/clase-18-main/movie-service/src/main/java/com/digitalhouse/movieservice/api/controller/MovieController.java
+/home/salo/Documentos/EspecializacionDH/1erBimestre/Back/clase-18-main/movie-service/src/main/java/com/digitalhouse/movieservice/api/service/MovieService.java
+/home/salo/Documentos/EspecializacionDH/1erBimestre/Back/clase-18-main/movie-service/src/main/java/com/digitalhouse/movieservice/MovieServiceApplication.java
