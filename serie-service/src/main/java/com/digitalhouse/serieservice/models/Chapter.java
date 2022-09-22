@@ -1,9 +1,7 @@
 package com.digitalhouse.serieservice.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 @Entity
 public class Chapter {
 
@@ -12,6 +10,7 @@ public class Chapter {
     private Long id;
     private String name;
     private Integer number;
+
     private String urlStream;
 
     public Chapter() {
