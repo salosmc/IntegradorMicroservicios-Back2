@@ -1,15 +1,15 @@
 version: "3.9"
 
 services:
-  #zipkin:
-  #  image: openzipkin/zipkin
-  #  ports:
-  #    - "9411:9411"
-  #rabbitmq:
-  #  image: rabbitmq:3.7.2-management
-  #  ports:
-  #    - "15672:15672"
-  #    - "5672:5672"
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+  rabbitmq:
+    image: rabbitmq:3.7.2-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
   eureka-service:
     image: eureka-service
     ports:
@@ -21,21 +21,21 @@ services:
       - "8888:8888"
     restart: always
   #agregamos contenedor de serie
-  serie-service:
-    image: serie-service
-    ports:
-      - "8086:8086"
-    restart: always
+  #serie-service:
+  #  image: serie-service
+  #  ports:
+  #    - "8086:8086"
+  #  restart: always
   movie-service:
     image: movie-service
     ports:
       - "8082:8082"
     restart: always
-  catalog-service:
-    image: catalog-service
-    ports:
-      - "8084:8084"
-    restart: always
+  #catalog-service:
+  #  image: catalog-service
+  #  ports:
+  #    - "8084:8084"
+  #  restart: always
   api-gateway:
     image: api-gateway
     ports:

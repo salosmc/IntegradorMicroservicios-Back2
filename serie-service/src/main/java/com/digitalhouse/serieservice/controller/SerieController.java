@@ -1,6 +1,5 @@
 package com.digitalhouse.serieservice.controller;
 
-
 import com.digitalhouse.serieservice.models.Serie;
 import com.digitalhouse.serieservice.service.SerieService;
 import org.springframework.beans.factory.annotation.Autowired;

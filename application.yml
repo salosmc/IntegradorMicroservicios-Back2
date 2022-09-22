@@ -1,7 +1,7 @@
 spring:
   zipkin:
-    #enabled: true
-    enabled: false
+    enabled: true
+    #enabled: false
     baseUrl: http://zipkin:9411
 
 management:
