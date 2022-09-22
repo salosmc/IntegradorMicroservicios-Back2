@@ -1,9 +1,6 @@
 package com.digitalhouse.serieservice.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -14,6 +11,8 @@ public class Serie {
     private String name;
     private String genre;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "serie_id")
     private List<Season> seasons;
 
     public Serie() {

@@ -1,3 +1,4 @@
+#cambiar de version de java, localmente estoy trabajando con java 11
 FROM openjdk:8-jdk-alpine
 RUN apk update && apk add bash
 ARG JAR_FILE=target/*.jar

@@ -1,8 +1,10 @@
-insert into movie(name, genre, url_stream) values('IT', 'terror', 'what')
-insert into movie(name, genre, url_stream) values('La masacre de texas', 'terror', 'what')
-insert into movie(name, genre, url_stream) values('Jack el destripador', 'terror', 'what')
-insert into movie(name, genre, url_stream) values('Anabelle', 'terror', 'what')
-insert into movie(name, genre, url_stream) values('Fast and Furious', 'acción', 'what')
-insert into movie(name, genre, url_stream) values('shadow', 'acción', 'what')
-insert into movie(name, genre, url_stream) values('Orgullo y prejuicio', 'romance', 'what')
-insert into movie(name, genre, url_stream) values('The notebook', 'romance', 'what')
+
+insert into chapter(name, number, urlStream, season_id) values("Pilot", 1, "www.neflix.com/GothamTemp1Cap1", 1)
+insert into chapter(name, number, urlStream, season_id) values("Selina Kyle", 2, "www.neflix.com/GothamTemp1Cap2", 1)
+
+insert into season(seasonNumber, serie_id ) values(1, 1)
+
+insert into serie(name, genre) values('Gotham', 'acción')
+
+insert into serie(name, genre) values('3 por ciento', 'drama')
+insert into serie(name, genre) values('The Flash', 'ciencia ficción')
