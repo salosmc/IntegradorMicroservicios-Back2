@@ -5,7 +5,7 @@ spring:
     config:
       discovery:
         enabled: true
-        service-id: config-service
+        service-id: ${config-service:localhost}
   rabbitmq:
     username: guest
     password: guest

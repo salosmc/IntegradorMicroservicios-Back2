@@ -5,11 +5,11 @@ spring:
     config:
       discovery:
         enabled: true
-        service-id: config-service
+        service-id: ${config-service:localhost}
   rabbitmq:
     username: guest
     password: guest
-    host: rabbitmq
+    host: ${rabbitmq:localhost}
     port: 5672
   profiles:
     active: dev
@@ -21,4 +21,4 @@ queue:
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-service:8761/eureka
+      defaultZone: http://${eureka-service:localhost}:8761/eureka
