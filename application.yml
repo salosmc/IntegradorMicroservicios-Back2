@@ -2,7 +2,7 @@ spring:
   zipkin:
     enabled: true
     #enabled: false
-    baseUrl: http://zipkin:9411
+    baseUrl: http://${zipkin:localhost}:9411
 
 management:
   endpoints:
