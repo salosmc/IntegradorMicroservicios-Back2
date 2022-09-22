@@ -17,7 +17,6 @@ import com.digitalhouse.movieservice.domain.models.Movie;
 public class MovieController {
 
     private final MovieService service;
-
     @Autowired
     public MovieController(MovieService movieService) {
         this.service = movieService;
