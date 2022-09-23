@@ -1,12 +1,12 @@
-package com.digitalhouse.movieservice.api.controller;
+package com.digitalhouse.movieservice.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.digitalhouse.movieservice.api.service.MovieService;
-import com.digitalhouse.movieservice.domain.models.Movie;
+import com.digitalhouse.movieservice.service.MovieService;
+import com.digitalhouse.movieservice.entities.Movie;
 
 @RestController
 @RequestMapping("/movies")

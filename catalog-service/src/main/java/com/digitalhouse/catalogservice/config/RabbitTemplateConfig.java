@@ -1,4 +1,4 @@
-package com.digitalhouse.catalogservice.api.config;
+package com.digitalhouse.catalogservice.config;
 
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

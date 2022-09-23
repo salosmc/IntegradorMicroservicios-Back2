@@ -1,4 +1,4 @@
-package com.digitalhouse.catalogservice.domain.model;
+package com.digitalhouse.catalogservice.dto;
 
 public class MovieDTO {
 

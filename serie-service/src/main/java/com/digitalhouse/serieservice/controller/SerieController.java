@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/series")
 public class SerieController {
-
     private final SerieService service;
     @Autowired
     public SerieController(SerieService serieService){
@@ -25,6 +24,5 @@ public class SerieController {
     ResponseEntity<List<Serie>> getSerieByGenre(@PathVariable String genre){
         return ResponseEntity.ok().body(service.findByGenre(genre));
     }
-
 
 }

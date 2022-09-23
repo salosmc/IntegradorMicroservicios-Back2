@@ -1,4 +1,4 @@
-package com.digitalhouse.movieservice.api.service;
+package com.digitalhouse.movieservice.service;
 
 import java.util.List;
 
@@ -7,10 +7,9 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import com.digitalhouse.movieservice.domain.models.Movie;
-import com.digitalhouse.movieservice.domain.repositories.MovieRepository;
+import com.digitalhouse.movieservice.entities.Movie;
+import com.digitalhouse.movieservice.repositories.MovieRepository;
 
 @Service
 public class MovieService {

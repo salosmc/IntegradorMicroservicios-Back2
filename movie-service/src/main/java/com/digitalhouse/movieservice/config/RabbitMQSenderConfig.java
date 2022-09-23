@@ -1,4 +1,4 @@
-package com.digitalhouse.catalogservice.api.config;
+package com.digitalhouse.movieservice.config;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.beans.factory.annotation.Value;

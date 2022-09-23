@@ -1,8 +1,6 @@
-package com.digitalhouse.movieservice.domain.models;
+package com.digitalhouse.movieservice.entities;
 
-import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;

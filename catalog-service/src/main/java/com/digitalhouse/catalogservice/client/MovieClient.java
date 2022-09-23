@@ -1,4 +1,4 @@
-package com.digitalhouse.catalogservice.api.client;
+package com.digitalhouse.catalogservice.client;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.digitalhouse.catalogservice.domain.model.MovieDTO;
+import com.digitalhouse.catalogservice.dto.MovieDTO;
 
 @FeignClient(name = "movie-service")
 public interface MovieClient {
@@ -18,4 +18,5 @@ public interface MovieClient {
     @GetMapping("/movies/withErrors/{genre}")
     ResponseEntity<List<MovieDTO>> getMovieByGenreWithThrowError(@PathVariable(value = "genre") String genre,
                                                                  @RequestParam("throwError") boolean throwError);
+
 }
