@@ -23,7 +23,6 @@ public class MovieController {
         return ResponseEntity.ok().body(service.findByGenre(genre));
     }
 
-    @PostMapping
 
 
     /*Creo que este metodo se usaba para probar el circuitbreaket, por eso se le mandaba un error*/

@@ -2,7 +2,6 @@ package com.digitalhouse.catalogservice.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,26 +17,28 @@ import com.digitalhouse.catalogservice.dto.MovieDTO;
 @RequestMapping("/catalogs")
 public class CatalogController {
 
-    private final MovieService movieService;
+    private final MovieService catalogService;
 
-    @Autowired
-    public CatalogController(MovieService movieService) {
-        this.movieService = movieService;
+    public CatalogController(MovieService catalogService){
+        this.catalogService = catalogService;
     }
 
+    /*Hasta aca esta hecho lo de movie*/
     @GetMapping("/{genre}")
     ResponseEntity<List<MovieDTO>> getGenre(@PathVariable String genre) {
-        return movieService.findMovieByGenre(genre);
+        return catalogService.findMovieByGenre(genre);
     }
-
     @GetMapping("/withErrors/{genre}")
     ResponseEntity<List<MovieDTO>> getGenre(@PathVariable String genre, @RequestParam("throwError") Boolean throwError) {
-        return movieService.findMovieByGenre(genre, throwError);
+        return catalogService.findMovieByGenre(genre, throwError);
     }
-
     @PostMapping
     ResponseEntity<String> saveMovie(@RequestBody MovieDTO movieDTO) {
-        movieService.saveMovie(movieDTO);
+        catalogService.saveMovie(movieDTO);
         return ResponseEntity.ok("La pelicula fue creada");
     }
+
+    /*vemos ejemplos consumiendo serie*/
+
+
 }

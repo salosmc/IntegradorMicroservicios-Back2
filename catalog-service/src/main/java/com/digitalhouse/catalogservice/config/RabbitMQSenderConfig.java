@@ -8,11 +8,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQSenderConfig {
 
+    /*Defino temple para movie*/
     @Value("${queue.movie.name}")
     private String movieQueue;
 
     @Bean
-    public Queue queue() {
+    public Queue queueMovie() {
         return new Queue(this.movieQueue, true);
+    }
+
+    /*Defino temple para serie*/
+    @Value("${queue.serie.name}")
+    private String serieQueue;
+
+    @Bean
+    public Queue queueSerie() {
+        return new Queue(this.serieQueue, true);
     }
 }
