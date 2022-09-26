@@ -37,5 +37,6 @@ public class MovieService {
     public void save(Movie movie) {
         LOG.info("Se recibió una pelicula: "+ movie.toString());
         repository.save(movie);
+
     }
 }

@@ -4,10 +4,7 @@ import com.digitalhouse.serieservice.models.Serie;
 import com.digitalhouse.serieservice.service.SerieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +20,12 @@ public class SerieController {
     @GetMapping("/{genre}")
     ResponseEntity<List<Serie>> getSerieByGenre(@PathVariable String genre){
         return ResponseEntity.ok().body(service.findByGenre(genre));
+    }
+
+    @PostMapping
+    public ResponseEntity<?> saveSeries(@RequestBody Serie serie) {
+        service.saveSerie(serie);
+        return ResponseEntity.ok("La serie fue guardada correctamente");
     }
 
 }

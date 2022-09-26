@@ -2,6 +2,10 @@ package com.digitalhouse.catalogservice.controller;
 
 import java.util.List;
 
+import com.digitalhouse.catalogservice.entities.Catalog;
+import com.digitalhouse.catalogservice.repository.CatalogRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,28 +21,49 @@ import com.digitalhouse.catalogservice.dto.MovieDTO;
 @RequestMapping("/catalogs")
 public class CatalogController {
 
-    private final MovieService catalogService;
+    private final MovieService movieService;
+    private final CatalogRepository catalogoRepository;
 
-    public CatalogController(MovieService catalogService){
-        this.catalogService = catalogService;
+    public CatalogController(MovieService movieService, CatalogRepository catalogoRepository){
+        this.movieService = movieService;
+        this.catalogoRepository = catalogoRepository;
     }
 
-    /*Hasta aca esta hecho lo de movie*/
+    /*crud de catalog*/
     @GetMapping("/{genre}")
-    ResponseEntity<List<MovieDTO>> getGenre(@PathVariable String genre) {
-        return catalogService.findMovieByGenre(genre);
+    ResponseEntity<Catalog> getCatalog(@PathVariable String genre){
+        //estamos supiniendo que no hay mas de un catalogo por genero.
+        return ResponseEntity.ok().body(catalogoRepository.findByGenre(genre));
     }
+
+    // faltaria crear, eliminar y actualizar catalog. pero no me parece que hace al modelo de negocio.
+
+    /*Aca empezamos con movies*/
+    @GetMapping("/movies/{genre}")
+    ResponseEntity<List<MovieDTO>> getGenre(@PathVariable String genre) {
+        return movieService.findMovieByGenre(genre);
+    }
+    /*
     @GetMapping("/withErrors/{genre}")
     ResponseEntity<List<MovieDTO>> getGenre(@PathVariable String genre, @RequestParam("throwError") Boolean throwError) {
-        return catalogService.findMovieByGenre(genre, throwError);
+        return movieService.findMovieByGenre(genre, throwError);
     }
+    */
+
     @PostMapping
     ResponseEntity<String> saveMovie(@RequestBody MovieDTO movieDTO) {
-        catalogService.saveMovie(movieDTO);
+        //consumimos el cliente para guardar la pelicula en movie-service
+        movieService.saveMovie(movieDTO);
+
+        //tener una validacion de saveMovie.
+        //capaz que el otro servicio complete una cola para catalog y persistir los datos como un string.
+
+        //persisto esta pelicula
+
+
         return ResponseEntity.ok("La pelicula fue creada");
     }
 
     /*vemos ejemplos consumiendo serie*/
-
 
 }

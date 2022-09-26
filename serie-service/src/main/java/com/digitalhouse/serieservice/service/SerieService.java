@@ -21,21 +21,21 @@ public class SerieService {
     public SerieService(SerieRepository serieRepository){this.repository=serieRepository;}
     /*---------------------*/
 
-    /*metodo para buscar por genero*/
+    //Buscamos por genero
     public List<Serie> findByGenre(String genre){
         //aca validamos
         //tambien podemos lanzar una exception RuntimeException()
+        LOG.info("Buscando pelicula por el genero: "+ genre);
         return repository.findByGenre(genre);
     }
 
     /*Metodo para guardar*/
     /*en este metodo es donde RabbitMQ esta escuchando y guardando la información*/
     @RabbitListener(queues = {"${queue.serie.name}"})
-    public void save(Serie serie){
+    public void saveSerie(Serie serie){
         //validaciones y demas idem al anterior
-        LOG.info("Se recibió una serie: " + serie.toString());
+        LOG.info("Guardando la serie: " + serie.toString());
         repository.save(serie);
     }
-
 
 }

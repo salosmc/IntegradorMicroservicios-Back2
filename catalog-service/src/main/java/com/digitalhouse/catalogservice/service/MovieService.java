@@ -51,8 +51,8 @@ public class MovieService {
     }
 
     public void saveMovie(MovieDTO movieDTO) {
-        //consumimos el cliente con sabeMovie? o que estamos haciendo?
-        rabbitTemplate.convertAndSend(movieQueue, movieDTO);
+        //buscamos el movie en la base de datos de catalog por genero
+       rabbitTemplate.convertAndSend(movieQueue, movieDTO);
     }
 
 }

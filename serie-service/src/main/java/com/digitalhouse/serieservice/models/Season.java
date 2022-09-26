@@ -1,17 +1,16 @@
 package com.digitalhouse.serieservice.models;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.*;
 import java.util.List;
-@Entity
-public class Season {
 
+@Document
+public class Season {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer seasonNumber;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "season_id")
     private List<Chapter> chapters;
 
     public Season() {

@@ -1,12 +1,13 @@
 package com.digitalhouse.serieservice.models;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.*;
 
-@Entity
+@Document
 public class Chapter {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Integer number;

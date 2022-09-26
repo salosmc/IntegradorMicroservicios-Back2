@@ -11,14 +11,11 @@ import java.util.List;
 
 @Entity
 public class Catalog {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String genre;
-
     private String movies;
-
     private String series;
 
     public Catalog() {
