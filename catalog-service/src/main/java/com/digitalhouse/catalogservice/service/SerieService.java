@@ -21,8 +21,6 @@ public class SerieService {
         this.serieClient = serieClient;
         this.repository = repository;
     }
-
-    /*Entiendo que aca serian los metodos de movie*/
     public List<Serie> findSerieByGenre(String genre) {
         LOG.warn("[serie-service] buscamos series por genero : "+genre);
         List<Serie> series = serieClient.getSerieByGenre(genre).getBody();
@@ -35,18 +33,6 @@ public class SerieService {
         repository.save(catalog);
         return series;
     }
-/*
-    @CircuitBreaker(name = "movies", fallbackMethod = "moviesFallbackMethod")
-    public ResponseEntity<List<MovieDTO>> findMovieByGenre(String genre, Boolean throwError) {
-        LOG.info("Se va a incluir el llamado al movie-service...");
-        return movieClient.getMovieByGenreWithThrowError(genre, throwError);
-    }
-
-    private ResponseEntity<List<MovieDTO>> moviesFallbackMethod(CallNotPermittedException exception) {
-        LOG.info("se activó el circuitbreaker");
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
-    }
-*/
     /*Metodo para guardar*/
     @RabbitListener(queues = {"${queue.serie.name}"})
     public void saveSerie(Serie serie){

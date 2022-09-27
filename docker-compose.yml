@@ -20,27 +20,25 @@ services:
     ports:
       - "8888:8888"
     restart: always
-    
-  mongodb:
-    image: mongo
-    container_name: "mongodb"
-    command: mongod --auth
-    environment:
-      - MONGO_INITDB_DATABASE=admin
-      - MONGO_INITDB_ROOT_USERNAME=rootuser
-      - MONGO_INITDB_ROOT_PASSWORD=rootpass
-    ports:
-      - "27017:27017"
-
-  mysql:
-    image: mysql
-    ports:
-      - 3306:3306
-    environment:
-      - MYSQL_DATABASE=moviedb
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=pass
-      - MYSQL_ROOT_PASSWORD=pass
+  #mongodb:
+  #  image: mongo
+  #  container_name: "mongodb"
+  #  command: mongod --auth
+  #  environment:
+  #    - MONGO_INITDB_DATABASE=admin
+  #    - MONGO_INITDB_ROOT_USERNAME=rootuser
+  #    - MONGO_INITDB_ROOT_PASSWORD=rootpass
+  #  ports:
+  #    - "27017:27017"
+  #mysql:
+  #  image: mysql
+  #  ports:
+  #    - 3306:3306
+  #  environment:
+  #    - MYSQL_DATABASE=moviedb
+  #    - MYSQL_USER=user
+  #    - MYSQL_PASSWORD=pass
+  #    - MYSQL_ROOT_PASSWORD=pass
   #agregamos contenedor de serie
   #serie-service:
   #  image: serie-service

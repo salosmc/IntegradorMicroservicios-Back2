@@ -564,6 +564,18 @@ no relacional de MongoDB con la siguiente estructura:
 
 * Crear proyecto y configurar Zipkin server para recibir los mensajes de los microservicios. Agregar Zipkin UI para visualizar las trazas. ✅
 
+    > ### docker-compose.yml
+    > 
+    > Servicio: zipkin
+    >
+    > Previsualización:
+    >
+    >     zipkin:
+    >       image: openzipkin/zipkin
+    >           ports:
+    >           - "9411:9411"
+
+    [ir a archivo docker-compose.yml](/docker-compose.yml)
 
 * Configurar Zipkin en cada microservicio. ✅
 
@@ -585,7 +597,7 @@ no relacional de MongoDB con la siguiente estructura:
     >     </dependency>
 
 
-    > ## application.yml
+    > ### application.yml
     >
     > Microservicio:
     >   - catalog-service
@@ -599,30 +611,147 @@ no relacional de MongoDB con la siguiente estructura:
     >           enabled: true
     >           baseUrl: http://${zipkin:localhost}:9411
 
+* Visualizar las comunicaciones entre los microservicios desde la interfaz que nos da Zipkin UI. ✅
 
-* Visualizar las comunicaciones entre los microservicios desde la interfaz que nos da
-Zipkin UI.
 
 * Deployment: todos los microservicios deberán deployarse en dockers. ✅
 
-    [ir a archivo docker-compose](/docker-compose.yml)
+    > ### Dockerfile
+    > 
+    > Microservicio:
+    >   - eureka-service
+    >   - config-service
+    >   - api-gateway
+    >   - catalog-service
+    >   - movie-service
+    >   - serie-service
+    >
+    > NAME-SERVICE:PORT : nombre del servicio del que depende el contenedor.
+    >
+    > Previsualización contenedor:
+    >          
+    >     FROM openjdk:11-jdk-alpine
+    >     RUN apk update && apk add bash
+    >     ARG JAR_FILE=target/*.jar
+    >     COPY ${JAR_FILE} app.jar
+    >     COPY wait-for-it.sh .
+    >     RUN chmod +x wait-for-it.sh
+    >     ENTRYPOINT ["./wait-for-it.sh", "-t", "60",NAME-SERVICE:PORT, "--", "java", "-jar", "app.jar"]
+
+    > ### docker-compose.yml
+    >
+    > Contenedores :
+    >   - zipkin
+    >   - rabbitmq
+    >   - eureka-service
+    >   - config-service
+    >   - api-gateway
+    >   - catalog-service
+    >   - movie-service
+    >   - serie-service
+    >   - mysql
+    >   - mongodb
+    >
+    > Previsualización:
+    >
+    >     version: "3.9"
+    >     services:
+    >       zipkin:
+    >       image: openzipkin/zipkin
+    >       ports:
+    >         - "9411:9411"
+    >       rabbitmq:
+    >       image: rabbitmq:3.7.2-management
+    >       ports:
+    >         - "15672:15672"
+    >         - "5672:5672"
+    >       eureka-service:
+    >         image: eureka-service
+    >       ports:
+    >       - "8761:8761"
+    >       restart: always
+    >       config-service:
+    >           image: config-service
+    >           ports:
+    >       - "8888:8888"
+    >       restart: always
+
+    [ir a archivo docker-compose.yml](/docker-compose.yml)
 
 ## Resiliencia - Resilence4J
 
-* Del proyecto anterior, se debe seleccionar uno de los servicios (preferentemente el que
-consideres que será más utilizado) y adaptarlo para que el mismo sea tolerante a fallos.
+* Del proyecto anterior, se debe seleccionar uno de los servicios (preferentemente el que consideres que será más utilizado) y adaptarlo para que el mismo sea tolerante a fallos.
+
+    - Se eligió implementar resiliencia para el servicio de movie.
 
 * Para lo anterior deberás:
-    * Definir esquema de resiliencia. Por ejemplo: doble redundancia, retry and
-fallback, balanceo de carga, tiempos de warm up, reglas de circuito.
-    * Modificar el código de tu proyecto —aplicando alguna de las tres tecnologías
-mencionadas— para que dentro del servicio seleccionado se aplique el
-esquema definido.
+    * Definir esquema de resiliencia. Por ejemplo: doble redundancia, retry and fallback, balanceo de carga, tiempos de warm up, reglas de circuito. ✅
+
+        - Se eligió implementar retry and fallback.
+
+    * Modificar el código de tu proyecto —aplicando alguna de las tres tecnologías mencionadas— para que dentro del servicio seleccionado se aplique el esquema definido. ✅
 
 * Como mínimo, el servicio deberá contar con:
-    * Doble redundancia.
-    * Reglas del circuito (se puede crear un servicio que devuelva activo/inactivo en
-función de la memoria disponible, uso del procesador, exceptions).
-    * Descripción de la solución de redundancia, justificación (un comentario en el
-código).
+    * Doble redundancia.  ✅
+    * Reglas del circuito (se puede crear un servicio que devuelva activo/inactivo en función de la memoria disponible, uso del procesador, exceptions).  ✅
+    * Descripción de la solución de redundancia, justificación (un comentario en el código).  ✅
 
+        - Se resolvio la redundancia configurando una cantidad de peticiones para hacer el analisis y ver si el 50% de esas peticiones fallaron o no, para abrir el circuito.    
+
+    ### Implementación
+
+    > ### pom.xml
+    >
+    > Microservicio : catalog-service
+    >
+    > Previsualización de dependencias:
+    >
+    >     <dependency>
+    >       <groupId>org.springframework.cloud</groupId>
+    >       <artifactId> spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+    >     </dependency>
+
+    [ir a archivo pom.xml](/catalog-service/pom.xml)
+
+    > ### catalog-service-dev.yml
+    >
+    > Microservicio : catalog-service
+    >
+    > Previsualización de configuración:
+    >
+    >     resilience4j:
+    >       circuitbreaker:
+    >           instances:
+    >               movies:
+    >                   slidingWindowType: COUNT_BASED
+    >                   slidingWindowSize: 5
+    >                   failureRateThreshold: 50
+    >                   automaticTransitionFromOpenToHalfOpenEnabled: true
+    >                   waitDurationInOpenState: 15000
+    >                   permittedNumberOfCallsInHalfOpenState: 3
+    >                   registerHealthIndicator: true
+    >                   allowHealthIndicatorToFail: false
+    >     management:
+    >       health:
+    >         circuitbreakers:
+    >           enabled: true
+
+    [ir a archivo catalog-service-dev.yml](/catalog-service-dev.yml)
+
+    > ### MovieService.java
+    > 
+    > Microservicio : catalog-service
+    >
+    > Previsualización de codigo:
+    >
+    >     @CircuitBreaker(name="movies", fallbackMethod = "moviesFallBackMethod")
+    >     public List<Movie> findMovieByGenre(String genre)
+
+    >     private List<Movie> moviesFallBackMethod(CallNotPermittedException exception) {
+    >       Catalog catalogo = repository.findByGenre(this.genre);
+    >       return catalogo.getMovies();
+    >     }
+
+    [ir a archivo MovieService.java](/catalog-service/src/main/java/com/digitalhouse/catalogservice/service/MovieService.java)
+
+    
