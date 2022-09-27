@@ -261,7 +261,6 @@ no relacional de MongoDB con la siguiente estructura:
     >     queue:
     >       serie:
     >           name: Serie
-  
 
     [ir a archivo bootstrap.yml](/serie-service/src/main/resources/bootstrap.yml)
 
@@ -395,7 +394,7 @@ no relacional de MongoDB con la siguiente estructura:
    
     [ir a archivo api-gateway-dev.yml](/api-gateway-dev.yml)
 
-* Agregar RabbitMQ y enviar un mensaje en el momento que se agregue una nueva película.
+* Agregar RabbitMQ y enviar un mensaje en el momento que se agregue una nueva película. ✅
 
     > ### RabbitMQSenderConfig.java
     > Microservicio: movie-service
@@ -428,7 +427,7 @@ no relacional de MongoDB con la siguiente estructura:
 
 ## catalog-service
 
-* Actualizar el catálogo utilizando Feign de manera de agregar a este servicio la búsqueda de las series por género (serie-service) y agregarlas a la respuesta del endpoint /catalog/{genre}.
+* Actualizar el catálogo utilizando Feign de manera de agregar a este servicio la búsqueda de las series por género (serie-service) y agregarlas a la respuesta del endpoint /catalog/{genre}. ✅
 
     > ### SerieClient.java
     > Microservicio: catalog-service
@@ -470,7 +469,7 @@ no relacional de MongoDB con la siguiente estructura:
 
     [ir a archivo SerieService.java](/catalog-service/src/main/java/com/digitalhouse/catalogservice/service/SerieService.java)
 
-* Agregar persistencia: luego de obtener las películas y las series según género, persistir las mismas en MongoDB.
+* Agregar persistencia: luego de obtener las películas y las series según género, persistir las mismas en MongoDB. ✅
 
     > ### SerieService.java
     > Microservicio: catalog-service
@@ -502,7 +501,7 @@ no relacional de MongoDB con la siguiente estructura:
 
     [ir a archivo MovieService.java](/catalog-service/src/main/java/com/digitalhouse/catalogservice/service/MovieService.java)
 
-* Agregar RabbitMQ y escuchar los mensajes que envían movie-service y serie-service. En caso de recibir un mensaje de algún servicio, actualizar el listado correspondiente, ya sea las películas o las series.
+* Agregar RabbitMQ y escuchar los mensajes que envían movie-service y serie-service. En caso de recibir un mensaje de algún servicio, actualizar el listado correspondiente, ya sea las películas o las series. ✅
 
     > ### RabbitMQSenderConfig.java
     > Microservicio: catalog-service
@@ -563,11 +562,10 @@ no relacional de MongoDB con la siguiente estructura:
 
 ## Spring Cloud: traceo utilizando Zipkin
 
-* Crear proyecto y configurar Zipkin server para recibir los mensajes de los microservicios. Agregar Zipkin UI para visualizar las trazas.
+* Crear proyecto y configurar Zipkin server para recibir los mensajes de los microservicios. Agregar Zipkin UI para visualizar las trazas. ✅
 
 
-
-* Configurar Zipkin en cada microservicio.
+* Configurar Zipkin en cada microservicio. ✅
 
     > ### pom.xml
     > Microservicio:
@@ -605,7 +603,7 @@ no relacional de MongoDB con la siguiente estructura:
 * Visualizar las comunicaciones entre los microservicios desde la interfaz que nos da
 Zipkin UI.
 
-* Deployment: todos los microservicios deberán deployarse en dockers.
+* Deployment: todos los microservicios deberán deployarse en dockers. ✅
 
     [ir a archivo docker-compose](/docker-compose.yml)
 
