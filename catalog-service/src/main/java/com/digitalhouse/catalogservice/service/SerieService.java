@@ -2,37 +2,38 @@ package com.digitalhouse.catalogservice.service;
 
 
 import com.digitalhouse.catalogservice.client.SerieClient;
-import com.digitalhouse.catalogservice.dto.SerieDTO;
-import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import com.digitalhouse.catalogservice.models.Catalog;
+import com.digitalhouse.catalogservice.models.Serie;
+import com.digitalhouse.catalogservice.repository.CatalogRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class SerieService {
-    @Value("${queue.serie.name}")
-    private String serieQueue;
     private final Logger LOG = LoggerFactory.getLogger(SerieService.class);
     private final SerieClient serieClient;
-
-    private final RabbitTemplate rabbitTemplate;
-
-    public SerieService(SerieClient serieClient, RabbitTemplate rabbitTemplate) {
+    private final CatalogRepository repository;
+    public SerieService(SerieClient serieClient, CatalogRepository repository) {
         this.serieClient = serieClient;
-        this.rabbitTemplate = rabbitTemplate;
+        this.repository = repository;
     }
 
     /*Entiendo que aca serian los metodos de movie*/
-    public ResponseEntity<List<SerieDTO>> findSerieByGenre(String genre) {
-        LOG.info("Se va a incluir el llamado al serie-service..");
-        return serieClient.getSerieByGenre(genre);
+    public List<Serie> findSerieByGenre(String genre) {
+        LOG.warn("[serie-service] buscamos series por genero : "+genre);
+        List<Serie> series = serieClient.getSerieByGenre(genre).getBody();
+        LOG.info("[serie-service] se encontraron las siguientes series : "+series.toString());
+        LOG.warn("[catalog-service] buscamos catalogo por genero : "+genre);
+        Catalog catalog = repository.findByGenre(genre);
+        LOG.info("[catalog-service] se encontro catalogo : "+catalog.toString());
+        catalog.setSeries(series);
+        LOG.warn("[catalog-service] persistiendo en mongodb");
+        repository.save(catalog);
+        return series;
     }
 /*
     @CircuitBreaker(name = "movies", fallbackMethod = "moviesFallbackMethod")
@@ -46,9 +47,18 @@ public class SerieService {
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
     }
 */
-    public void saveSerie(SerieDTO serieDTO) {
-        //consumimos el cliente con sabeMovie? o que estamos haciendo?
-        rabbitTemplate.convertAndSend(serieQueue, serieDTO);
+    /*Metodo para guardar*/
+    @RabbitListener(queues = {"${queue.serie.name}"})
+    public void saveSerie(Serie serie){
+        LOG.warn("Buscando catalogo por genero : " + serie.getGenre());
+        Catalog catalogo = repository.findByGenre(serie.getGenre());
+        LOG.info("Se encontro catalogo : "+ catalogo);
+        List<Serie> series = catalogo.getSeries();
+        LOG.warn("Se agrega a catalogo la serie : "+serie);
+        series.add(serie);
+        catalogo.setSeries(series);
+        LOG.info("Se persisite catalogo en BD : "+catalogo.toString());
+        repository.save(catalogo);
     }
 
 }

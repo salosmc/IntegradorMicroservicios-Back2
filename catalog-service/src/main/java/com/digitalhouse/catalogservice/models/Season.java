@@ -1,14 +1,14 @@
-package com.digitalhouse.catalogservice.dto;
+package com.digitalhouse.catalogservice.models;
 
 import java.util.List;
 
-public class SeasonDTO {
+public class Season {
     private Long id;
     private Integer seasonNumber;
 
-    private List<ChapterDTO> chapters;
+    private List<Chapter> chapters;
 
-    public SeasonDTO() {
+    public Season() {
     }
 
     public Long getId() {
@@ -27,12 +27,21 @@ public class SeasonDTO {
         this.seasonNumber = seasonNumber;
     }
 
-    public List<ChapterDTO> getChapters() {
+    public List<Chapter> getChapters() {
         return chapters;
     }
 
-    public void setChapters(List<ChapterDTO> chapters) {
+    public void setChapters(List<Chapter> chapters) {
         this.chapters = chapters;
     }
 
+
+    @Override
+    public String toString() {
+        return "Season{" +
+                "id=" + id +
+                ", seasonNumber=" + seasonNumber +
+                ", chapters=" + chapters.toString() +
+                '}';
+    }
 }

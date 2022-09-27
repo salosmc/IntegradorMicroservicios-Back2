@@ -1,4 +1,4 @@
-package com.digitalhouse.movieservice.entities;
+package com.digitalhouse.movieservice.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,6 +1,6 @@
-package com.digitalhouse.movieservice.repositories;
+package com.digitalhouse.movieservice.repository;
 
-import com.digitalhouse.movieservice.entities.Movie;
+import com.digitalhouse.movieservice.models.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

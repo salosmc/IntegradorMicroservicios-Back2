@@ -6,37 +6,47 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import com.digitalhouse.movieservice.entities.Movie;
-import com.digitalhouse.movieservice.repositories.MovieRepository;
+import com.digitalhouse.movieservice.models.Movie;
+import com.digitalhouse.movieservice.repository.MovieRepository;
 
 @Service
 public class MovieService {
-
+    @Value("${queue.movie.name}")
+    private String movieQueue;
     private static final Logger LOG = LoggerFactory.getLogger(MovieService.class);
-
     private final MovieRepository repository;
+    private final RabbitTemplate rabbitTemplate;
 
     @Autowired
-    public MovieService(MovieRepository movieRepository) {
+    public MovieService(MovieRepository movieRepository, RabbitTemplate rabbitTemplate) {
         this.repository = movieRepository;
+        this.rabbitTemplate= rabbitTemplate;
     }
 
     public List<Movie> findByGenre(String genre) {
-        return repository.findByGenre(genre);
+        LOG.warn("Buscando peliculas por genero : "+genre);
+        List<Movie> movies = repository.findByGenre(genre);
+        LOG.info("Peliculas encontradas : "+movies.toString());
+        return movies;
     }
 
+    /*
     public List<Movie> findByGenre(String genre, Boolean throwError) {
         if (throwError)
             throw new RuntimeException();
         return repository.findByGenre(genre);
     }
+    */
 
-    @RabbitListener(queues = {"${queue.movie.name}"})
-    public void save(Movie movie) {
-        LOG.info("Se recibió una pelicula: "+ movie.toString());
+    public void saveMovie(Movie movie) {
+        LOG.warn("Persistiendo pelicula en BD");
         repository.save(movie);
-
+        LOG.info("Pelicula persisitida : "+movie.toString());
+        LOG.warn("Enviando mensaje a la cola de pelicula");
+        rabbitTemplate.convertAndSend(movieQueue, movie);
     }
 }

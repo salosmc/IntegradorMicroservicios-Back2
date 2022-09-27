@@ -1,6 +1,6 @@
-package com.digitalhouse.catalogservice.dto;
+package com.digitalhouse.catalogservice.models;
 
-public class ChapterDTO {
+public class Chapter {
 
     private Long id;
     private String name;
@@ -8,7 +8,7 @@ public class ChapterDTO {
 
     private String urlStream;
 
-    public ChapterDTO() {
+    public Chapter() {
     }
 
     public Long getId() {
@@ -41,5 +41,15 @@ public class ChapterDTO {
 
     public void setUrlStream(String urlStream) {
         this.urlStream = urlStream;
+    }
+
+    @Override
+    public String toString() {
+        return "Chapter{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", number=" + number +
+                ", urlStream='" + urlStream + '\'' +
+                '}';
     }
 }

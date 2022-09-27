@@ -10,9 +10,8 @@ public class RabbitMQSenderConfig {
 
     @Value("${queue.serie.name}")
     private String serieQueue;
-
     @Bean
-    public Queue queue() {
+    public Queue queueSerie() {
         return new Queue(this.serieQueue, true);
     }
 }

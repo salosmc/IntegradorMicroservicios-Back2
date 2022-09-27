@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.digitalhouse.movieservice.service.MovieService;
-import com.digitalhouse.movieservice.entities.Movie;
+import com.digitalhouse.movieservice.models.Movie;
 
 @RestController
 @RequestMapping("/movies")

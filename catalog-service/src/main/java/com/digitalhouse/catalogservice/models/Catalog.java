@@ -1,7 +1,4 @@
-package com.digitalhouse.catalogservice.entities;
-
-import com.digitalhouse.catalogservice.dto.MovieDTO;
-import com.digitalhouse.catalogservice.dto.SerieDTO;
+package com.digitalhouse.catalogservice.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +12,8 @@ public class Catalog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String genre;
-    private String movies;
-    private String series;
+    private List<Movie> movies;
+    private List<Serie> series;
 
     public Catalog() {
     }
@@ -37,19 +34,29 @@ public class Catalog {
         this.genre = genre;
     }
 
-    public String getMovies() {
+    public List<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(String movies) {
+    public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
 
-    public String getSeries() {
+    public List<Serie> getSeries() {
         return series;
     }
 
-    public void setSeries(String series) {
+    public void setSeries(List<Serie> series) {
         this.series = series;
+    }
+
+    @Override
+    public String toString() {
+        return "Catalog{" +
+                "id=" + id +
+                ", genre='" + genre + '\'' +
+                ", movies=" + movies +
+                ", series=" + series +
+                '}';
     }
 }

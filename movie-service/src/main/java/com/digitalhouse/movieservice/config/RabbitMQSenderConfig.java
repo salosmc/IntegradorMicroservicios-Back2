@@ -7,24 +7,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQSenderConfig {
-
-    /*temple de cola de movie*/
     @Value("${queue.movie.name}")
     private String movieQueue;
-
     @Bean
-    public Queue queue() {
+    public Queue queueMovie() {
         return new Queue(this.movieQueue, true);
     }
-
-
-    /*voy a intentar configurar una cola de catalog*/
-    @Value("${queue.catalog.name}")
-    private String catalogQueue;
-
-    @Bean
-    public Queue queueCatalog() {
-        return new Queue(this.catalogQueue, true);
-    }
-
 }

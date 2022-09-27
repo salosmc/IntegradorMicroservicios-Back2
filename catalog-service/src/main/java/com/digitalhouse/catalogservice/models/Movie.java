@@ -1,13 +1,13 @@
-package com.digitalhouse.catalogservice.dto;
+package com.digitalhouse.catalogservice.models;
 
-public class MovieDTO {
+public class Movie {
 
     private Long id;
     private String name;
     private String genre;
     private String urlStream;
 
-    public MovieDTO() {
+    public Movie() {
         //No-args constructor
     }
 
@@ -45,11 +45,11 @@ public class MovieDTO {
 
     @Override
     public String toString() {
-        return "{\"MovieDTO\":{"
-            + "\"id\":\"" + id + "\""
-            + ", \"name\":\"" + name + "\""
-            + ", \"genre\":\"" + genre + "\""
-            + ", \"urlStream\":\"" + urlStream + "\""
-            + "}}";
+        return "Movie{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", genre='" + genre + '\'' +
+                ", urlStream='" + urlStream + '\'' +
+                '}';
     }
 }
