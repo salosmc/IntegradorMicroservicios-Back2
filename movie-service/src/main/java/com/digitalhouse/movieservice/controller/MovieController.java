@@ -11,7 +11,6 @@ import com.digitalhouse.movieservice.models.Movie;
 @RestController
 @RequestMapping("/movies")
 public class MovieController {
-
     private final MovieService service;
     @Autowired
     public MovieController(MovieService movieService) {
@@ -22,5 +21,9 @@ public class MovieController {
     ResponseEntity<List<Movie>> getMovieByGenre(@PathVariable String genre) {
         return ResponseEntity.ok().body(service.findByGenre(genre));
     }
-
+    @PostMapping
+    ResponseEntity<?> saveMovies(@RequestBody Movie movie){
+        service.saveMovie(movie);
+        return ResponseEntity.ok("La pelicula fue guardada correctamente");
+    }
 }

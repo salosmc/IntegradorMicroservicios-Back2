@@ -7,7 +7,6 @@ spring:
     username: root #${user:root}
     password: password #${pass:password}
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   sql:
     init:
       data-locations: classpath:movie.sql
@@ -15,6 +14,18 @@ spring:
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: create-drop
+
+  rabbitmq:
+    username: guest
+    password: guest
+    host: ${rabbitmq:localhost}
+    port: 5672
+  profiles:
+    active: dev
+
+queue:
+  movie:
+    name: Movie
 
 info:
   app:

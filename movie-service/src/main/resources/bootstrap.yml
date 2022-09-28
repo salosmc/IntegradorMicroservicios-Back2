@@ -6,17 +6,6 @@ spring:
       discovery:
         enabled: true
         service-id: ${config-service:localhost}
-  rabbitmq:
-    username: guest
-    password: guest
-    host: ${rabbitmq:localhost}
-    port: 5672
-  profiles:
-    active: dev
-
-queue:
-  movie:
-    name: Movie
 
 eureka:
   client:
