@@ -34,14 +34,6 @@ public class MovieService {
         return movies;
     }
 
-    /*
-    public List<Movie> findByGenre(String genre, Boolean throwError) {
-        if (throwError)
-            throw new RuntimeException();
-        return repository.findByGenre(genre);
-    }
-    */
-
     public void saveMovie(Movie movie) {
         LOG.warn("Persistiendo pelicula en BD");
         repository.save(movie);
