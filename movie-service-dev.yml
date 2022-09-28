@@ -15,18 +15,6 @@ spring:
     hibernate:
       ddl-auto: create-drop
 
-  rabbitmq:
-    username: guest
-    password: guest
-    host: ${rabbitmq:localhost}
-    port: 5672
-  profiles:
-    active: dev
-
-queue:
-  movie:
-    name: Movie
-
 info:
   app:
     name: ${spring.application.name}
