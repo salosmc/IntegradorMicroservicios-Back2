@@ -1,8 +1,7 @@
 package com.digitalhouse.serieservice.models;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.persistence.*;
 
 @Document
 public class Chapter {
