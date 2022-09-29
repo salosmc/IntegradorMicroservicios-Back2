@@ -5,14 +5,9 @@ spring:
     config:
       discovery:
         enabled: true
-        service-id: localhost
-
+        service-id: ${config-server:localhost}
   profiles:
     active: dev
-
-queue:
-  movie:
-    name: Movie
 
 eureka:
   client:

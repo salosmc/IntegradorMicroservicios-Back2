@@ -23,6 +23,11 @@ spring:
   #  hibernate:
   #    ddl-auto: create-drop
 
+
+queue:
+  serie:
+    name: Serie
+
 info:
   app:
     name: ${spring.application.name}

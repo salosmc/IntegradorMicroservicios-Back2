@@ -23,6 +23,12 @@ spring:
   #  hibernate:
   #    ddl-auto: create-drop
 
+queue:
+  movie:
+    name: Movie
+  serie:
+    name: Serie
+
 resilience4j:
   circuitbreaker:
     instances:

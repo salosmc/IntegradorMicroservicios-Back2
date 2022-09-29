@@ -14,11 +14,11 @@ spring:
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: create-drop
-  rabbitmq:
-    username: guest
-    password: guest
-    host: ${rabbitmq:localhost}
-    port: 5672
+
+
+queue:
+  movie:
+    name: Movie
 
 info:
   app:
