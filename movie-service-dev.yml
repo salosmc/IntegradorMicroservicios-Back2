@@ -9,12 +9,11 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   sql:
     init:
-      data-locations: classpath:movie.sql
+      data-locations: movie.sql
   jpa:
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: create-drop
-
 
 queue:
   movie:
