@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: dbc:mysql://mysql:3306/moviedb?createDatabaseIfNotExist=true
+    url: dbc:mysql://localhost:3306/moviedb?createDatabaseIfNotExist=true
     username: root
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
