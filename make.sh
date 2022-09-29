@@ -14,10 +14,10 @@ cd ..
 #docker build . -t serie-service
 #cd ..
 
-#cd movie-service/
-#mvn clean && mvn package -DskipTests
-#docker build . -t movie-service
-#cd ..
+cd movie-service/
+mvn clean && mvn package -DskipTests
+docker build . -t movie-service
+cd ..
 
 #cd catalog-service/
 #mvn clean && mvn package -DskipTests
