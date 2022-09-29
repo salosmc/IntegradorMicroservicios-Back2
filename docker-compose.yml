@@ -52,6 +52,8 @@ services:
     restart: always
     environment:
       - ENV_PROFILE=prod
+      - ENV_EUREKA_SERVICE=eureka-service
+      - ENV_CONFIG_SERVICE=config-service
   #catalog-service:
   #  image: catalog-service
   #  ports:
