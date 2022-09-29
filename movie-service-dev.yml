@@ -4,14 +4,14 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://${mysql:localhost}:3306/moviedb?createDatabaseIfNotExist=true
-    username: rootuser #${rootuser:root}
-    password: rootpass #${rootpass:password}
+    username: user #${rootuser:root}
+    password: pass #${rootpass:password}
     driver-class-name: com.mysql.cj.jdbc.Driver
-  sql:
-    init:
-      data-locations: classpath:movie.sql
+  #sql:
+  #  init:
+  #    data-locations: classpath:movie.sql
   jpa:
-    defer-datasource-initialization: true
+  #  defer-datasource-initialization: true
     hibernate:
       ddl-auto: create-drop
 
