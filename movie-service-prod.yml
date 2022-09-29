@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: dbc:mysql://mysql:3306/moviedb?createDatabaseIfNotExist=true
-    username: root
-    password: password
+    url: jdbc:mysql://mysql:3306/moviedb #jdbc:mysql://mysql:3306/moviedb?createDatabaseIfNotExist=true
+    username: user #${rootuser:root}
+    password: pass #${rootpass:password}
     driver-class-name: com.mysql.cj.jdbc.Driver
   #sql:
   #  init:

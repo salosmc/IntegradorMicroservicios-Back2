@@ -50,6 +50,8 @@ services:
     ports:
       - "8082:8082"
     restart: always
+    environment:
+      - ENV_PROFILE=prod
   #catalog-service:
   #  image: catalog-service
   #  ports:
