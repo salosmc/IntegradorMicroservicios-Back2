@@ -3,7 +3,7 @@ mvn clean && mvn package -DskipTests
 docker build . -t eureka-service
 cd ..
 
-cd server-config/
+cd config-server/
 mvn clean && mvn package -DskipTests
 docker build . -t config-service
 cd ..
@@ -24,7 +24,7 @@ cd ..
 #docker build . -t catalog-service
 #cd ..
 
-cd api-gateway/
+cd api-gateway-server/
 mvn clean && mvn package -DskipTests
 docker build . -t api-gateway
 cd ..

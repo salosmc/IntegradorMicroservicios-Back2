@@ -5,12 +5,8 @@ spring:
     config:
       discovery:
         enabled: true
-        service-id: ${config-service:localhost}
-  rabbitmq:
-    username: guest
-    password: guest
-    host: ${rabbitmq:localhost}
-    port: 5672
+        service-id: localhost
+
   profiles:
     active: dev
 
