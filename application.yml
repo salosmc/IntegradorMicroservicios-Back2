@@ -2,11 +2,6 @@ spring:
   zipkin:
     enabled: true
     baseUrl: http://zipkin:9411
-  rabbitmq:
-    username: guest
-    password: guest
-    host: rabbitmq
-    port: 5672
 
 management:
   endpoints:
