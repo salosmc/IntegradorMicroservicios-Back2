@@ -20,16 +20,16 @@ services:
     ports:
       - "8888:8888"
     restart: always
-  #mongodb:
-  #  image: mongo
-  #  container_name: "mongodb"
-  #  command: mongod --auth
-  #  environment:
-  #    - MONGO_INITDB_DATABASE=admin
-  #    - MONGO_INITDB_ROOT_USERNAME=rootuser
-  #    - MONGO_INITDB_ROOT_PASSWORD=rootpass
-  #  ports:
-  #    - "27017:27017"
+  mongodb:
+    image: mongo
+    container_name: "mongodb"
+    command: mongod --auth
+    environment:
+      - MONGO_INITDB_DATABASE=admin
+      - MONGO_INITDB_ROOT_USERNAME=rootuser
+      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+    ports:
+      - "27017:27017"
   #mysql:
   #  image: mysql
   #  ports:
@@ -40,11 +40,18 @@ services:
   #    - MYSQL_PASSWORD=pass
   #    - MYSQL_ROOT_PASSWORD=pass
   #agregamos contenedor de serie
-  #serie-service:
-  #  image: serie-service
-  #  ports:
-  #    - "8086:8086"
-  #  restart: always
+  serie-service:
+    depends_on:
+      - mongodb
+    image: serie-service
+    ports:
+      - "8086:8086"
+    restart: always
+    environment:
+      - ENV_PROFILE=prod
+      - ENV_EUREKA_SERVICE=eureka-service
+      - ENV_CONFIG_SERVICE=config-service  
+
   #movie-service:
   #  image: movie-service
   #  ports:

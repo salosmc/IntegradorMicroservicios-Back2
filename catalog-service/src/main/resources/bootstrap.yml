@@ -5,11 +5,11 @@ spring:
     config:
       discovery:
         enabled: true
-        service-id: ${config-service:localhost}
+        service-id: ${ENV_CONFIG_SERVICE} #${config-service:localhost}
   profiles:
-    active: dev
+    active: ${ENV_PROFILE} #dev
 
 eureka:
   client:
     service-url:
-      defaultZone: http://${eureka-service:localhost}:8761/eureka
+      defaultZone: http://${ENV_EUREKA_SERVICE}:8761/eureka #http://${eureka-service:localhost}:8761/eureka

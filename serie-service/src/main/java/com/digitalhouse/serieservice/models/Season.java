@@ -10,12 +10,9 @@ public class Season {
     @Id
     private String id;
     private Integer seasonNumber;
-
     private List<Chapter> chapters;
-
     public Season() {
     }
-
     public String getId() {
         return id;
     }
