@@ -20,14 +20,14 @@ services:
     ports:
       - "8888:8888"
     restart: always
-  #mongodb:
-  #  image: mongo
-  #  container_name: "mongodb"
-  #  command: mongod --auth
-  #  environment:
-  #    - MONGO_INITDB_DATABASE=admin
-  #    - MONGO_INITDB_ROOT_USERNAME=rootuser
-  #    - MONGO_INITDB_ROOT_PASSWORD=rootpass
+  mongodb:
+    image: mongo
+    container_name: "mongodb"
+    command: mongod --auth
+    environment:
+      - MONGO_INITDB_DATABASE=admin
+      - MONGO_INITDB_ROOT_USERNAME=rootuser
+      - MONGO_INITDB_ROOT_PASSWORD=rootpass
   #  ports:
   #    - "27017:27017"
   #mysql:
