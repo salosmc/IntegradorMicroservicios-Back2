@@ -10,7 +10,7 @@ spring:
   data:
     mongodb:
       authentication-database: admin
-      username: user #${rootuser:root}
+      username: username #${rootuser:root}
       password: password #${rootpass:password}
       database: series
       port: 27017
