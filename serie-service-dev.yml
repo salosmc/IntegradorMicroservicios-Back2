@@ -10,11 +10,11 @@ spring:
   data:
     mongodb:
       authentication-database: admin
-      #username: root #${rootuser:root}
-      #password: password #${rootpass:password}
+      username: ${rootuser:root}
+      password: ${rootpass:password}
       database: series
       port: 27017
-      host: localhost #${mongodb:localhost}
+      host: ${mongodb:localhost}
   #datasource:
   #  driver-class-name: org.h2.Driver
   #  url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;
