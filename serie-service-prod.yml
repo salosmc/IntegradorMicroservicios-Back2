@@ -5,16 +5,16 @@ spring:
   rabbitmq:
     username: guest
     password: guest
-    host: localhost
+    host: rabbitmq
     port: 5672
   data:
     mongodb:
       authentication-database: admin
-      username: root #${rootuser:root}
-      password: password #${rootpass:password}
+      username: rootuser 
+      password: rootpass 
       database: series
       port: 27017
-      host: localhost #${mongodb:localhost}
+      host: mongodb
   #datasource:
   #  driver-class-name: org.h2.Driver
   #  url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;
