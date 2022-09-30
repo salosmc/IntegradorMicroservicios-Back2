@@ -8,7 +8,7 @@ import java.util.List;
 @Document
 public class Serie {
     @Id
-    private Long id;
+    private String id;
     private String name;
     private String genre;
     private List<Season> seasons;
@@ -16,11 +16,11 @@ public class Serie {
     public Serie() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
