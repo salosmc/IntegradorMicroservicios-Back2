@@ -49,7 +49,7 @@ public class MovieService {
         Catalog catalogo = repository.findByGenre(movie.getGenre());
         LOG.info("Se encontro catalogo : "+ catalogo);
         List<Movie> movies = catalogo.getMovies();
-        LOG.warn("Se agrega a catalogo la pelicula : "+movie);
+        LOG.warn("Se agrega a catalogo la pelicula : "+movie.toString());
         movies.add(movie);
         catalogo.setMovies(movies);
         LOG.info("Se persisite catalogo en BD : "+catalogo.toString());

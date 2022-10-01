@@ -33,7 +33,7 @@ public class CatalogController {
         Catalog catalogo = new Catalog();
         catalogo.setGenre(genre);
         //findSerieByGenre
-        catalogo.setSeries(serieService.findSerieByGenre(genre));
+        //catalogo.setSeries(serieService.findSerieByGenre(genre));
         //getMovieByGenre
         catalogo.setMovies(movieService.findMovieByGenre(genre));
         //Y setemos Catalogo
