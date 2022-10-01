@@ -2,7 +2,7 @@ package com.digitalhouse.catalogservice.models;
 
 public class Chapter {
 
-    private Long id;
+    private String id;
     private String name;
     private Integer number;
 
@@ -11,11 +11,11 @@ public class Chapter {
     public Chapter() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -45,11 +45,10 @@ public class Chapter {
 
     @Override
     public String toString() {
-        return "Chapter{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", number=" + number +
-                ", urlStream='" + urlStream + '\'' +
-                '}';
+        return "{\"Chapter\":{"
+                + "\"id\":\"" + id +"\" ,"
+                + "\"name\":\"" + name +"\" ,"
+                + "\"number\":\"" + number + "\" ,"
+                + "\"urlStream\":\"" + urlStream + "\"}}";
     }
 }

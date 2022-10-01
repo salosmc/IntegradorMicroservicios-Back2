@@ -45,11 +45,11 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", genre='" + genre + '\'' +
-                ", urlStream='" + urlStream + '\'' +
-                '}';
+        return "{\"Movie\":{"
+                + "\"id\":\"" + id + "\""
+                + ", \"name\":\"" + name + "\""
+                + ", \"genre\":\"" + genre + "\""
+                + ", \"urlStream\":\"" + urlStream + "\""
+                + "}}";
     }
 }

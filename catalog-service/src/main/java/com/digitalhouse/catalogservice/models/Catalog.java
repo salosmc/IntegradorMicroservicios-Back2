@@ -9,7 +9,7 @@ import java.util.List;
 @Document
 public class Catalog {
     @Id
-    private Long id;
+    private String id;
     private String genre;
     private List<Movie> movies;
     private List<Serie> series;
@@ -17,11 +17,11 @@ public class Catalog {
     public Catalog() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -54,8 +54,8 @@ public class Catalog {
         return "Catalog{" +
                 "id=" + id +
                 ", genre='" + genre + '\'' +
-                ", movies=" + movies +
-                ", series=" + series +
+                ", movies=" + movies.toString() +
+                ", series=" + series.toString() +
                 '}';
     }
 }
