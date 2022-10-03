@@ -2,9 +2,7 @@
 
 ## Examen final
 
-Esta evaluación será distinta a la anterior, ya que la construiremos durante las clases
-siguientes. Esto no quiere decir que lo resolvamos durante los encuentros en vivo, pero con
-los temas que iremos abordando podrán completar los requisitos. ¡Éxitos!
+Esta evaluación será distinta a la anterior, ya que la construiremos durante las clases siguientes. Esto no quiere decir que lo resolvamos durante los encuentros en vivo, pero con los temas que iremos abordando podrán completar los requisitos. ¡Éxitos!
 
 ### Contextualización
 
@@ -102,7 +100,7 @@ no relacional de MongoDB con la siguiente estructura:
     >     eureka:
     >        client:
     >            service-url:
-    >               defaultZone: http://${eureka-service:localhost}:8761/eureka
+    >               defaultZone: http://${ENV_EUREKA_SERVICE}:8761/eureka
 
     [ir a archivo bootstrap.yml](/serie-service/src/main/resources/bootstrap.yml)
 
@@ -132,7 +130,7 @@ no relacional de MongoDB con la siguiente estructura:
     >       config:
     >           discovery:
     >               enabled: true
-    >               service-id: ${config-service:localhost}
+    >               service-id: ${ENV_CONFIG_SERVICE}
 
     [ir a archivo bootstrap.yml](/serie-service/src/main/resources/bootstrap.yml)
 
@@ -179,7 +177,7 @@ no relacional de MongoDB con la siguiente estructura:
 
     [ir a archivo .pom](/serie-service/pom.xml)
 
-    > ### serie-service-dev.yml
+    > ### serie-service-prod.yml
     > Microservicio: serie-service 
     >
     > Previsualización de configuraciones:
@@ -194,7 +192,7 @@ no relacional de MongoDB con la siguiente estructura:
     >           port: 27017
     >           host: mongodb
 
-    [ir a archivo serie-service-dev.yml](/serie-service-dev.yml)
+    [ir a archivo serie-service-prod.yml](/serie-service-dev.yml)
 
 
     > ### Serie.java
@@ -244,7 +242,7 @@ no relacional de MongoDB con la siguiente estructura:
 
     [ir a archivo pom.xml](/serie-service/pom.xml)
 
-    > ### bootstrap.yml
+    > ### serie-service-prod
     > Microservicio: serie-service
     >
     > Previsualización de configuración:
@@ -253,7 +251,7 @@ no relacional de MongoDB con la siguiente estructura:
     >       rabbitmq:
     >           username: guest
     >           password: guest
-    >           host: ${rabbitmq:localhost}
+    >           host: rabbitmq
     >           port: 5672
     >       profiles:
     >           active: dev
@@ -262,9 +260,7 @@ no relacional de MongoDB con la siguiente estructura:
     >       serie:
     >           name: Serie
 
-    [ir a archivo bootstrap.yml](/serie-service/src/main/resources/bootstrap.yml)
-
-    //Observación : estas configuracion podrían ir en serie-service-dev.yml así ya se estaría tomando del config-server.
+    [ir a archivo serie-service-prod](/serie-service/src/main/resources/bootstrap.yml)
 
     ### /config
 
@@ -335,7 +331,7 @@ no relacional de MongoDB con la siguiente estructura:
     [ir a archivo pom.xml](/movie-service/pom.xml)
 
 
-    > ### movie-service-dev.yml
+    > ### movie-service-prod.yml
     >
     > Microservicio: movie-service
     >
@@ -348,7 +344,7 @@ no relacional de MongoDB con la siguiente estructura:
     >           password: pass
     >           driver-class-name: com.mysql.cj.jdbc.Driver
 
-    [ir a archivo movie-service-dev.yml](/movie-service-dev.yml)
+    [ir a archivo movie-service-prod.yml](/movie-service-dev.yml)
 
 
     > ### Movie.java
@@ -449,7 +445,7 @@ no relacional de MongoDB con la siguiente estructura:
     >     public ResponseEntity<List<Serie>> findSerieByGenre(String genre) {
     >       LOG.info("Se va a incluir el llamado al serie-service..");
     >       return serieClient.getSerieByGenre(genre);
-    >      }
+    >     }
 
     [ir a archivo SerieService.java](/catalog-service/src/main/java/com/digitalhouse/catalogservice/service/SerieService.java)
 
@@ -477,12 +473,27 @@ no relacional de MongoDB con la siguiente estructura:
     > Previsualización del codigo:
     >
     >     public List<Serie> findSerieByGenre(String genre) {
+    >       this.genre=genre;
+    >       LOG.warn("Buscamos series a [serie-service] por genero : "+genre);
     >       List<Serie> series = serieClient.getSerieByGenre(genre).getBody();
-    >       Catalog catalog = repository.findByGenre(genre);
-    >       catalog.setSeries(series);
-    >       repository.save(catalog);
+    >       if(series.isEmpty()||series == null){
+    >           LOG.error("No se encontraron series en [serie-service]");
+    >           return new ArrayList<Serie>();
+    >       }
+    >       LOG.warn("Buscamos catalogo por genero : "+genre);
+    >       Catalog catalogo = repository.findByGenre(genre);
+    >       if(catalogo == null){
+    >           LOG.warn("No se encontro catalogo en BD");
+    >           catalogo = new Catalog();
+    >           catalogo.setGenre(genre);
+    >           catalogo.setSeries(new ArrayList<Serie>());
+    >       }
+    >       LOG.info("Se encontro/creo catalogo por el genero : "+catalogo.getGenre());
+    >       catalogo.setSeries(series);
+    >       LOG.warn("Persistiendo en BD");
+    >       repository.save(catalogo);
     >       return series;
-    >     }
+    >    }
 
     [ir a archivo SerieService.java](/catalog-service/src/main/java/com/digitalhouse/catalogservice/service/SerieService.java)
 
@@ -492,12 +503,28 @@ no relacional de MongoDB con la siguiente estructura:
     > Previsualización del codigo:
     >
     >     public List<Movie> findMovieByGenre(String genre) {
+    >       this.genre= genre;
+    >       LOG.warn("Buscamos peliculas a [movie-service] por genero : "+genre);
     >       List<Movie> movies = movieClient.getMovieByGenre(genre).getBody();
+    >       if(movies.isEmpty() || movies == null){
+    >           LOG.error("No se encontraron peliculas en [movie-service]");
+    >           return new ArrayList<Movie>();
+    >       }
+    >       LOG.warn("Buscamos catalogo por genero : "+genre);
     >       Catalog catalogo = repository.findByGenre(genre);
+    >       if(catalogo == null){
+    >           LOG.warn("No se encontro catalogo en BD");
+    >           catalogo = new Catalog();
+    >           catalogo.setGenre(genre);
+    >           catalogo.setMovies(new ArrayList<Movie>());
+    >       }
+    >       LOG.info("Se encontro/creo catalogo por el genero : "+catalogo.getGenre());
     >       catalogo.setMovies(movies);
+    >       LOG.warn("Persistiendo en BD");
     >       repository.save(catalogo);
     >       return movies;
-    >     }
+    >     } 
+    
 
     [ir a archivo MovieService.java](/catalog-service/src/main/java/com/digitalhouse/catalogservice/service/MovieService.java)
 
@@ -532,12 +559,27 @@ no relacional de MongoDB con la siguiente estructura:
     > Previsualización del codigo:
     >
     >     @RabbitListener(queues = {"${queue.serie.name}"})
-    >       public void saveSerie(Serie serie){
-    >       Catalog catalog = repository.findByGenre(serie.getGenre());
-    >       List<Serie> series = catalog.getSeries();
-    >       series.add(serie);
-    >       catalog.setSeries(series);
-    >       repository.save(catalog);
+    >     public void saveSerie(Serie serie) {
+    >     try {
+    >        LOG.warn("Buscando catalogo por genero : " + serie.getGenre());
+    >        Catalog catalogo = repository.findByGenre(serie.getGenre());
+    >        if(catalogo == null) {
+    >           LOG.warn("No se encontro ningun catalogo");
+    >           catalogo = new Catalog();
+    >           catalogo.setGenre(serie.getGenre());
+    >        }
+    >           if(catalogo.getSeries() == null){
+    >               catalogo.setSeries(new ArrayList<Serie>());
+    >           }
+    >           List<Serie> series = catalogo.getSeries();
+    >           LOG.warn("Se agrega a catalogo la serie ");
+    >           series.add(serie);
+    >           catalogo.setSeries(series);
+    >           LOG.info("Se persisite catalogo en BD");
+    >           repository.save(catalogo);
+    >       }catch (Exception e) {
+    >           LOG.error(e.getMessage());
+    >       }
     >     }
 
     [ir a archivo SerieService.java](/catalog-service/src/main/java/com/digitalhouse/catalogservice/service/SerieService.java)
@@ -550,11 +592,27 @@ no relacional de MongoDB con la siguiente estructura:
     >
     >     @RabbitListener(queues = {"${queue.movie.name}"})
     >     public void saveMovie(Movie movie){
-    >       Catalog catalogo = repository.findByGenre(movie.getGenre());
-    >       List<Movie> movies = catalogo.getMovies();
-    >       movies.add(movie);
-    >       catalogo.setMovies(movies);
-    >       repository.save(catalogo);
+    >       try{
+    >           LOG.warn("Buscando catalogo por genero : "+movie.getGenre());
+    >           Catalog catalogo = repository.findByGenre(movie.getGenre());
+    >           if(catalogo == null){
+    >              LOG.warn("Catalogo es null");
+    >              catalogo = new Catalog();
+    >              catalogo.setGenre(movie.getGenre());
+    >           }
+    >           if(catalogo.getMovies() == null){
+    >             catalogo.setMovies(new ArrayList<Movie>());
+    >           }
+    >           List<Movie> movies = catalogo.getMovies();
+    >           LOG.warn("Se agrega a catalogo la pelicula : "+movie.toString());
+    >           movies.add(movie);
+    >           catalogo.setMovies(movies);
+    >           LOG.info("Se persisite catalogo en BD");
+    >           repository.save(catalogo);
+    >       }
+    >       catch (Exception e){
+    >          LOG.error(e.getMessage());
+    >       }
     >     }
 
     [ir a archivo MovieService.java](/catalog-service/src/main/java/com/digitalhouse/catalogservice/service/MovieService.java)

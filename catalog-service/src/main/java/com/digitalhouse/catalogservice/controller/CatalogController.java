@@ -40,8 +40,7 @@ public class CatalogController {
         return ResponseEntity.ok().body(catalogo);
     }
 
-
-    /*Aca empezamos con movies*/
+    /*movies*/
     /*
     @GetMapping("/movies/{genre}")
     ResponseEntity<List<Movie>> getCatalogMovie(@PathVariable String genre) {
@@ -52,12 +51,4 @@ public class CatalogController {
         return movieService.findMovieByGenre(genre, throwError);
     }
     */
-
-    @PostMapping
-    ResponseEntity<String> saveMovie(@RequestBody Movie movieDTO) {
-        //consumimos el cliente para guardar la pelicula en movie-service
-        movieService.saveMovie(movieDTO);
-
-        return ResponseEntity.ok("La pelicula fue creada");
-    }
 }
