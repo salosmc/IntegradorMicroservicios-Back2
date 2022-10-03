@@ -11,61 +11,81 @@ services:
       - "15672:15672"
       - "5672:5672"
   eureka-service:
+#    depends_on:
+#      - zipkin
     image: eureka-service
     ports:
       - "8761:8761"
     restart: always
   config-service:
+#    depends_on:
+#      - eureka-service
     image: config-service
     ports:
       - "8888:8888"
     restart: always
-  #mongodb:
-  #  image: mongo
-  #  container_name: "mongodb"
-  #  command: mongod --auth
-  #  environment:
-  #    - MONGO_INITDB_DATABASE=admin
-  #    - MONGO_INITDB_ROOT_USERNAME=rootuser
-  #    - MONGO_INITDB_ROOT_PASSWORD=rootpass
-  #  ports:
-  #    - "27017:27017"
-  #mysql:
-  #  image: mysql
-  #  ports:
-  #    - "3306:3306"
-  #  environment:
-  #    - MYSQL_DATABASE=moviedb
-  #    - MYSQL_USER=user
-  #    - MYSQL_PASSWORD=pass
-  #    - MYSQL_ROOT_PASSWORD=pass
+  mongodb:
+    image: mongo
+    container_name: "mongodb"
+    command: mongod --auth
+    environment:
+      - MONGO_INITDB_DATABASE=admin
+      - MONGO_INITDB_ROOT_USERNAME=rootuser
+      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+    ports:
+      - "27017:27017"
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=moviedb
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
+      - MYSQL_ROOT_PASSWORD=pass
   #agregamos contenedor de serie
-  #serie-service:
-  #  depends_on:
-  #    - mongodb
-  #  image: serie-service
-  #  ports:
-  #    - "8086:8086"
-  #  restart: always
-  #  environment:
-  #    - ENV_PROFILE=prod
-  #    - ENV_EUREKA_SERVICE=eureka-service
-  #    - ENV_CONFIG_SERVICE=config-service  
+  serie-service:
+#    depends_on:
+#      - mongodb
+#      - rabbitmq
+#      - config-service
+    image: serie-service
+    ports:
+      - "8086:8086"
+    restart: always
+    environment:
+      - ENV_PROFILE=prod
+      - ENV_EUREKA_SERVICE=eureka-service
+      - ENV_CONFIG_SERVICE=config-service  
 
-  #movie-service:
-  #  image: movie-service
-  #  ports:
-  #    - "8082:8082"
-  #  restart: always
-  #  environment:
-  #    - ENV_PROFILE=prod
-  #    - ENV_EUREKA_SERVICE=eureka-service
-  #    - ENV_CONFIG_SERVICE=config-service
-  #catalog-service:
-  #  image: catalog-service
-  #  ports:
-  #    - "8084:8084"
-  #  restart: always
+  movie-service:
+#    depends_on:
+#      - mysql
+#      - rabbitmq
+#      - config-service
+    image: movie-service
+    ports:
+      - "8082:8082"
+    restart: always
+    environment:
+      - ENV_PROFILE=prod
+      - ENV_EUREKA_SERVICE=eureka-service
+      - ENV_CONFIG_SERVICE=config-service
+
+  catalog-service:
+#    depends_on:
+#      - mongodb
+#      - rabbitmq
+#      - config-service
+    image: catalog-service
+    ports:
+      - "8084:8084"
+    restart: always
+    environment:
+      - ENV_PROFILE=prod
+      - ENV_EUREKA_SERVICE=eureka-service
+      - ENV_CONFIG_SERVICE=config-service  
+  
   api-gateway:
     image: api-gateway
     ports:

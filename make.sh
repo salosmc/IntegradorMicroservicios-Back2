@@ -19,10 +19,10 @@ mvn clean && mvn package -DskipTests
 docker build . -t movie-service
 cd ..
 
-#cd catalog-service/
-#mvn clean && mvn package -DskipTests
-#docker build . -t catalog-service
-#cd ..
+cd catalog-service/
+mvn clean && mvn package -DskipTests
+docker build . -t catalog-service
+cd ..
 
 cd api-gateway-server/
 mvn clean && mvn package -DskipTests
