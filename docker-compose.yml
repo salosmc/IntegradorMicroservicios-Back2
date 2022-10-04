@@ -43,7 +43,6 @@ services:
       - MYSQL_USER=user
       - MYSQL_PASSWORD=pass
       - MYSQL_ROOT_PASSWORD=pass
-  #agregamos contenedor de serie
   serie-service:
 #    depends_on:
 #      - mongodb
@@ -71,7 +70,6 @@ services:
       - ENV_PROFILE=prod
       - ENV_EUREKA_SERVICE=eureka-service
       - ENV_CONFIG_SERVICE=config-service
-
   catalog-service:
 #    depends_on:
 #      - mongodb
@@ -85,7 +83,6 @@ services:
       - ENV_PROFILE=prod
       - ENV_EUREKA_SERVICE=eureka-service
       - ENV_CONFIG_SERVICE=config-service  
-  
   api-gateway:
     image: api-gateway
     ports:

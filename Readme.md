@@ -69,6 +69,43 @@ no relacional de MongoDB con la siguiente estructura:
                 - number
                 - urlStream
 
+## Ejecución
+
+- Descargar comprimido del proyecto.
+- Subir proyecto a algun repositorio propio.
+- Setear en el [application.properties](/config-server/src/main/resources/application.properties) la url donde config-service va a obtener las configuraciones de los microservicios.
+
+    ### En producción
+
+    - Contar con 6 gb de ram libres como minimo.
+    - La ejecucuion del script [make.sh](/make.sh), buildea los proyectos, crear las imagenes con Dockerfile, hace el deploy a los contenedores y los orquesta con docker compose.
+    >     sh make.sh 
+
+    - Corroborar en localhost:8761 (eureka) si estan todos los servidores levantados.
+
+    ### En desarrollo
+
+    - Contar con 4 gb de ram libres como minimo.
+    - Se recomienda comentar los siguientes contenedores del [docker compose](/docker-compose.yml).
+        - mysql
+        - mongodb
+        - catalogo-service
+        - movie-service
+        - serie-service
+    - Configurar las variables de entorno que se utilizan en el [bootstrap.yml](/catalog-service/src/main/resources/bootstrap.yml) de catalogo-service, movie-service, serie-service.
+        - ENV_CONFIG_SERVICE = localhost
+        - ENV_EUREKA_SERVICE = localhost
+        - ENV_PROFILE = dev
+    - Actualice las configuraciones de los micro servicios en los archivos que terminan en *-dev.yml segun sus credenciales de base de datos locales.
+    - No hace falta builder los micro servicios nuevamente, si ya tiene las imagenes puede ejecutar directamente el docker compose con el compando.
+        >     docker compose up
+    - Luego ejecutar cada micro servicio aparte desde el gestor de paquetes o framework de turno y comprobar que se levanto correctamente en Eureka.
+
+    ## Al terminar
+    - Se recomienda bajar todos los contenedores
+        >     docker compose down
+
+
 ## Consigna
 
 ## serie-service
@@ -650,8 +687,8 @@ no relacional de MongoDB con la siguiente estructura:
     >       <artifactId>spring-cloud-starter-sleuth</artifactId>
     >     </dependency>
     >     <dependency>
-    >        <groupId>org.springframework.cloud</groupId>
-    >        <artifactId>spring-cloud-sleuth-zipkin</artifactId>
+    >       <groupId>org.springframework.cloud</groupId>
+    >       <artifactId>spring-cloud-sleuth-zipkin</artifactId>
     >     </dependency>
 
 
@@ -667,7 +704,7 @@ no relacional de MongoDB con la siguiente estructura:
     >     spring:
     >       zipkin:
     >           enabled: true
-    >           baseUrl: http://${zipkin:localhost}:9411
+    >           baseUrl: http://zipkin:9411
 
 * Visualizar las comunicaciones entre los microservicios desde la interfaz que nos da Zipkin UI. ✅
 
@@ -688,7 +725,7 @@ no relacional de MongoDB con la siguiente estructura:
     >
     > Previsualización contenedor:
     >          
-    >     FROM openjdk:11-jdk-alpine
+    >     FROM openjdk:8-jdk-alpine
     >     RUN apk update && apk add bash
     >     ARG JAR_FILE=target/*.jar
     >     COPY ${JAR_FILE} app.jar
@@ -715,24 +752,24 @@ no relacional de MongoDB con la siguiente estructura:
     >     version: "3.9"
     >     services:
     >       zipkin:
-    >       image: openzipkin/zipkin
-    >       ports:
-    >         - "9411:9411"
+    >           image: openzipkin/zipkin
+    >           ports:
+    >           - "9411:9411"
     >       rabbitmq:
-    >       image: rabbitmq:3.7.2-management
-    >       ports:
-    >         - "15672:15672"
-    >         - "5672:5672"
+    >           image: rabbitmq:3.7.2-management
+    >           ports:
+    >           - "15672:15672"
+    >           - "5672:5672"
     >       eureka-service:
     >         image: eureka-service
-    >       ports:
-    >       - "8761:8761"
-    >       restart: always
+    >           ports:
+    >           - "8761:8761"
+    >           restart: always
     >       config-service:
     >           image: config-service
     >           ports:
-    >       - "8888:8888"
-    >       restart: always
+    >           - "8888:8888"
+    >           restart: always
 
     [ir a archivo docker-compose.yml](/docker-compose.yml)
 
